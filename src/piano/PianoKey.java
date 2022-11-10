@@ -16,18 +16,19 @@ public class PianoKey extends Polygon {
     private KeyType type;
     private int octave;
     private Notes note;
+    private int volume = 100;
     private boolean isPressed = false;
 
     private Receiver receiver;
 
-
-    //FIX ME: See if it is possible to use the receiver from the class's field rather than pass one as a parameter
+    // FIX ME: See if it is possible to use the receiver from the class's field
+    // rather than pass one as a parameter
     public void startNote(Receiver receiver) {
 
         try {
             int noteValue = 12 * (this.octave) + (Note.getNoteMap().get(this.note)) + Note.getOffset();
             ShortMessage a = new ShortMessage();
-            a.setMessage(144, 1, noteValue, 100);
+            a.setMessage(144, 1, noteValue, volume);
 
             receiver.send(a, -1); // -1 means that midi gets to the event as soon as it can
 
@@ -41,7 +42,7 @@ public class PianoKey extends Polygon {
         try {
             int noteValue = 12 * (this.octave) + (Note.getNoteMap().get(this.note)) + Note.getOffset();
             ShortMessage a = new ShortMessage();
-            a.setMessage(128, 1, noteValue, 100);
+            a.setMessage(128, 1, noteValue, volume);
 
             receiver.send(a, -1); // -1 means that midi gets to the event as soon as it can
 
@@ -50,14 +51,15 @@ public class PianoKey extends Polygon {
 
     }
 
- 
-    //FIX ME: Make two separate methods, one to set the proper actions, one to change the color depending on key type
+    // FIX ME: Make two separate methods, one to set the proper actions, one to
+    // change the color depending on key type //NEVERMIND, LEAVE AS IS
     private void setChangeColor() {
         switch (this.type) {
             case STANDARD:
+            case C_FINAL:
             case B_E_KEY:
             case C_F_KEY:
-                
+
                 this.setOnDragDetected(e -> {
                     this.startNote(receiver);
                     this.setFill(Color.WHITE.darker());
@@ -84,10 +86,9 @@ public class PianoKey extends Polygon {
                     this.setFill(Color.WHITE);
                 });
                 break;
-
+            case SHARP_FLAT_FINAL:
             case SHARP_FLAT:
-            
-                
+
                 this.setOnDragDetected(e -> {
                     this.startNote(receiver);
                     this.setFill(Color.DARKGRAY.darker().darker());
@@ -120,14 +121,14 @@ public class PianoKey extends Polygon {
     }
 
     public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
-            double noteWidth, double noteHeight, KeyCode keyboardKey) {
+            double noteWidth, double noteHeight, int volume) {
         super();
-        
-        this.keyboardKey = keyboardKey;
+        this.keyboardKey = null;
         this.type = type;
         this.receiver = receiver;
         this.note = note;
         this.octave = octave;
+        this.volume = volume;
         double OFFSET = noteWidth / 3.0;
         switch (type) {
             case STANDARD:
@@ -171,6 +172,17 @@ public class PianoKey extends Polygon {
                 });
                 this.setChangeColor();
                 break;
+            case C_FINAL:
+                this.setStroke(Color.BLACK);
+                this.setFill(Color.WHITE);
+                this.getPoints().addAll(new Double[] {
+                        (leftAnchor), (topAnchor + noteHeight),
+                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight),
+                        (leftAnchor + 3 * OFFSET), (topAnchor),
+                        (leftAnchor), (topAnchor)
+                });
+                this.setChangeColor();
+                break;
             case SHARP_FLAT:
                 this.setStroke(Color.BLACK);
                 this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
@@ -191,22 +203,51 @@ public class PianoKey extends Polygon {
                 }
                 this.setChangeColor();
                 break;
+            case SHARP_FLAT_FINAL:
+                this.setStroke(Color.BLACK);
+                this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
+
+                this.getPoints().addAll(new Double[] {
+                        (leftAnchor - OFFSET), (topAnchor),
+                        (leftAnchor), (topAnchor),
+                        (leftAnchor), (topAnchor + noteHeight / 2.0),
+                        (leftAnchor - OFFSET), (topAnchor + noteHeight / 2.0)
+                });
+
+                this.setChangeColor();
+                break;
 
         }
     }
 
+    public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
+            double noteWidth, double noteHeight, int volume, KeyCode keyboardKey) {
+        this(type, leftAnchor, topAnchor, receiver, note, octave, noteWidth, noteHeight, volume);
+        this.keyboardKey = keyboardKey;
+    }
 
-    public KeyCode getKeyboardKey(){
+    public KeyCode getKeyboardKey() {
         return this.keyboardKey;
     }
-    public KeyType getKeyType(){
+
+    public KeyType getKeyType() {
         return this.type;
     }
-    public boolean getIsPressed(){
+
+    public boolean getIsPressed() {
         return this.isPressed;
     }
-    public void setIsPressed(boolean pressed){
+
+    public void setIsPressed(boolean pressed) {
         this.isPressed = pressed;
+    }
+
+    public Notes getNote() {
+        return this.note;
+    }
+
+    public int getOctave() {
+        return this.octave;
     }
 
     /*

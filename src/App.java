@@ -9,9 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import music.Notes;
 import piano.PianoKey;
-import piano.PianoPane;
+
 import piano.PianoScene;
 import piano.KeyType;
+import piano.KeyboardPane;
+
 import javax.sound.midi.*;
 
 public class App extends Application {
@@ -33,11 +35,12 @@ public class App extends Application {
       Receiver receiver = MidiSystem.getReceiver();
       Pane pane = new Pane();
       pane.setPrefSize(1000, 1000);
-
-      PianoPane piano = new PianoPane(Notes.A, 3, receiver);
+      /* 
+      KeyboardPane piano = new KeyboardPane(Notes.A, 3, receiver);
 
       Scene scene1 = new Scene(piano, 1000, 500);
 
+      
       scene1.setOnKeyPressed(e -> {
 
         for (Node key : piano.getChildren()) {
@@ -88,15 +91,18 @@ public class App extends Application {
         }
 
       });
-
+*/
       stagePiano.setScene(new PianoScene(1000, 500, receiver));
       stagePiano.show(); // Display the stage
+
+      //stagePiano.getIcons().add(new Image()); //FIX ME: ADD IMAGE FILE PATH AND COMPLETE
 
     } catch (Exception ex) {
 
     }
 
   }
+  
 
   /**
    * The main method is only needed for the IDE with limited
