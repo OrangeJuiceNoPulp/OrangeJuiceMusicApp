@@ -2,13 +2,14 @@ package piano;
 
 import javax.sound.midi.*;
 
-import javafx.scene.control.Button;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import music.Notes;
 import music.Note;
+import music.NoteUtil;
 
 public class PianoKey extends Polygon {
 
@@ -16,19 +17,21 @@ public class PianoKey extends Polygon {
     private KeyType type;
     private int octave;
     private Notes note;
-    private int volume = 100;
+    private static IntegerProperty volume = new SimpleIntegerProperty();
     private boolean isPressed = false;
 
     private Receiver receiver;
 
-    // FIX ME: See if it is possible to use the receiver from the class's field
-    // rather than pass one as a parameter
-    public void startNote(Receiver receiver) {
+    public static IntegerProperty getVolumeProperty() {
+        return volume;
+    }
+
+    public void startNote() {
 
         try {
-            int noteValue = 12 * (this.octave) + (Note.getNoteMap().get(this.note)) + Note.getOffset();
+            int noteValue = 12 * (this.octave) + (NoteUtil.getNoteMap().get(this.note)) + Note.getOffset();
             ShortMessage a = new ShortMessage();
-            a.setMessage(144, 1, noteValue, volume);
+            a.setMessage(144, 1, noteValue, volume.get());
 
             receiver.send(a, -1); // -1 means that midi gets to the event as soon as it can
 
@@ -37,12 +40,12 @@ public class PianoKey extends Polygon {
 
     }
 
-    public void stopNote(Receiver receiver) {
+    public void stopNote() {
 
         try {
-            int noteValue = 12 * (this.octave) + (Note.getNoteMap().get(this.note)) + Note.getOffset();
+            int noteValue = 12 * (this.octave) + (NoteUtil.getNoteMap().get(this.note)) + Note.getOffset();
             ShortMessage a = new ShortMessage();
-            a.setMessage(128, 1, noteValue, volume);
+            a.setMessage(128, 1, noteValue, volume.get());
 
             receiver.send(a, -1); // -1 means that midi gets to the event as soon as it can
 
@@ -51,8 +54,6 @@ public class PianoKey extends Polygon {
 
     }
 
-    // FIX ME: Make two separate methods, one to set the proper actions, one to
-    // change the color depending on key type //NEVERMIND, LEAVE AS IS
     private void setChangeColor() {
         switch (this.type) {
             case STANDARD:
@@ -61,7 +62,7 @@ public class PianoKey extends Polygon {
             case C_F_KEY:
 
                 this.setOnDragDetected(e -> {
-                    this.startNote(receiver);
+                    this.startNote();
                     this.setFill(Color.WHITE.darker());
                     this.startFullDrag();
                 });
@@ -69,20 +70,20 @@ public class PianoKey extends Polygon {
                     e.setDragDetect(true);
                 });
                 this.setOnMouseReleased(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.WHITE);
                     e.setDragDetect(false);
                 });
                 this.setOnMouseDragEntered(e -> {
-                    this.startNote(receiver);
+                    this.startNote();
                     this.setFill(Color.WHITE.darker());
                 });
                 this.setOnMouseDragExited(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.WHITE);
                 });
                 this.setOnMouseDragReleased(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.WHITE);
                 });
                 break;
@@ -90,30 +91,30 @@ public class PianoKey extends Polygon {
             case SHARP_FLAT:
 
                 this.setOnDragDetected(e -> {
-                    this.startNote(receiver);
+                    this.startNote();
                     this.setFill(Color.DARKGRAY.darker().darker());
                     this.startFullDrag();
                 });
                 this.setOnMousePressed(e -> {
                     e.setDragDetect(true);
-                    this.startNote(receiver);
+                    this.startNote();
                     this.setFill(Color.DARKGRAY.darker().darker());
                 });
                 this.setOnMouseReleased(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
                     e.setDragDetect(false);
                 });
                 this.setOnMouseDragEntered(e -> {
-                    this.startNote(receiver);
+                    this.startNote();
                     this.setFill(Color.DARKGRAY.darker().darker());
                 });
                 this.setOnMouseDragExited(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
                 });
                 this.setOnMouseDragReleased(e -> {
-                    this.stopNote(receiver);
+                    this.stopNote();
                     this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
                 });
                 break;
@@ -121,14 +122,13 @@ public class PianoKey extends Polygon {
     }
 
     public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
-            double noteWidth, double noteHeight, int volume) {
+            double noteWidth, double noteHeight) {
         super();
         this.keyboardKey = null;
         this.type = type;
         this.receiver = receiver;
         this.note = note;
         this.octave = octave;
-        this.volume = volume;
         double OFFSET = noteWidth / 3.0;
         switch (type) {
             case STANDARD:
@@ -221,8 +221,8 @@ public class PianoKey extends Polygon {
     }
 
     public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
-            double noteWidth, double noteHeight, int volume, KeyCode keyboardKey) {
-        this(type, leftAnchor, topAnchor, receiver, note, octave, noteWidth, noteHeight, volume);
+            double noteWidth, double noteHeight, KeyCode keyboardKey) {
+        this(type, leftAnchor, topAnchor, receiver, note, octave, noteWidth, noteHeight);
         this.keyboardKey = keyboardKey;
     }
 
@@ -249,18 +249,5 @@ public class PianoKey extends Polygon {
     public int getOctave() {
         return this.octave;
     }
-
-    /*
-     * public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Note note)
-     * {
-     * this(type, leftAnchor, topAnchor);
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * }
-     */
 
 }

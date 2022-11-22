@@ -1,0 +1,5 @@
+package music;
+
+public enum NoteLengthType {
+    SIXTEENTH, EIGHTH, DOTTED_EIGHTH, QUARTER, DOTTED_QUARTER, HALF, DOTTED_HALF, WHOLE
+}
