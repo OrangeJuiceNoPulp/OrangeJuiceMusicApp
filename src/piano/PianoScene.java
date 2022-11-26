@@ -35,22 +35,11 @@ public class PianoScene extends Scene {
 
             if (key.getKeyboardKey() == e.getCode()) {
 
-              if (key.getIsPressed() != true) {
-                key.setIsPressed(true);
+              if (key.getIsKeyboardPressed() != true) {
                 key.startNote();
+                key.changeColorKeyboard();
+                key.setIsKeyboardPressed(true);
 
-                switch (key.getKeyType()) {
-                  case B_E_KEY:
-                  case C_F_KEY:
-                  case C_FINAL:
-                  case STANDARD:
-                    key.setFill(Color.WHITE.darker());
-                    break;
-                  case SHARP_FLAT_FINAL:
-                  case SHARP_FLAT:
-                    key.setFill(Color.DARKGRAY.darker().darker());
-                    break;
-                }
               }
             }
           }
@@ -63,22 +52,10 @@ public class PianoScene extends Scene {
       for (PianoKey key : piano.getMappedKeys()) {
 
         if (key.getKeyboardKey() == e.getCode()) {
-          if (key.getIsPressed() == true) {
+          if (key.getIsKeyboardPressed() == true) {
             key.stopNote();
-
-            switch (key.getKeyType()) {
-              case B_E_KEY:
-              case C_F_KEY:
-              case C_FINAL:
-              case STANDARD:
-                key.setFill(Color.WHITE);
-                break;
-              case SHARP_FLAT_FINAL:
-              case SHARP_FLAT:
-                key.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-                break;
-            }
-            key.setIsPressed(false);
+            key.changeColorKeyboard();
+            key.setIsKeyboardPressed(false);
           }
         }
       }

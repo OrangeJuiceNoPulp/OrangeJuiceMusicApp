@@ -6,11 +6,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch App",
+            "name": "Launch OrangeJuiceMusicApp",
             "request": "launch",
-            "mainClass": "App",
+            "mainClass": "OrangeJuiceMusicApp",
             "projectName": "Piano_cbbe808b",
             "vmArgs": "--module-path C:/Users/indys/Desktop/CSI2300/javafx-sdk-19/lib --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing"
-        }
+        },
     ]
 }

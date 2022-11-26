@@ -267,7 +267,7 @@ public class KeyboardPane extends Pane {
                         case A:
                             if (octave != 0) {
                                 if (i != 0) {
-                                    this.mappedKeys.add(new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0,
+                                    this.mappedKeys.add(new SharpFlatKey(i * noteWidth, 0.0,
                                             this.receiver, Notes.Ab, octave, noteWidth, noteHeight,
                                             sharpKeyMap.get(j)));
                                     Text label = new Text(i * noteWidth - noteWidth / 10.0,
@@ -277,7 +277,7 @@ public class KeyboardPane extends Pane {
 
                                     this.mappingLabels.add(label);
                                 } else {
-                                    this.mappedKeys.add(new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0,
+                                    this.mappedKeys.add(new SharpFlatKey(i * noteWidth, 0.0,
                                             this.receiver, Notes.Ab, octave, noteWidth, noteHeight,
                                             sharpKeyMap.get(j)));
                                     Text label = new Text(i * noteWidth, noteHeight / 2.0 - noteHeight / 20.0,
@@ -289,7 +289,7 @@ public class KeyboardPane extends Pane {
                                 }
 
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                        new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                                 octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                                 if (displayKeyLabels == true) {
                                     Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -308,7 +308,7 @@ public class KeyboardPane extends Pane {
                                 }
 
                             } else if (i == 0) {
-                                this.mappedKeys.add(new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0,
+                                this.mappedKeys.add(new C_F_Key(i * noteWidth, 0.0,
                                         this.receiver, Notes.A, octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                                 if (displayKeyLabels == true) {
                                     Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -331,7 +331,7 @@ public class KeyboardPane extends Pane {
                         case B:
                             if (i != 0) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                         noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -341,7 +341,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             } else {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth, noteHeight / 2.0 - noteHeight / 20.0,
                                         sharpKeyLabelMap.get(j));
@@ -352,7 +352,7 @@ public class KeyboardPane extends Pane {
 
                             }
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.B_E_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                    new B_E_Key(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                             if (displayKeyLabels == true) {
                                 Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -375,7 +375,7 @@ public class KeyboardPane extends Pane {
                         case C:
                             if (compareNotes(note, octave, Notes.C, 8) == 0) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.C_FINAL, i * noteWidth, 0.0, this.receiver, note,
+                                        new FinalCKey(i * noteWidth, 0.0, this.receiver, note,
                                                 octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                                 if (displayKeyLabels == true) {
                                     Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -395,7 +395,7 @@ public class KeyboardPane extends Pane {
                                 note = Notes.D;
                             } else {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                        new C_F_Key(i * noteWidth, 0.0, this.receiver, note,
                                                 octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                                 if (displayKeyLabels == true) {
                                     Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -418,7 +418,7 @@ public class KeyboardPane extends Pane {
                         case D:
                             if (i != 0) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Db,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Db,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                         noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -428,7 +428,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             } else {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Db,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Db,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth, noteHeight / 2.0 - noteHeight / 20.0,
                                         sharpKeyLabelMap.get(j));
@@ -438,7 +438,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             }
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                    new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                             if (displayKeyLabels == true) {
                                 Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -460,7 +460,7 @@ public class KeyboardPane extends Pane {
                         case E:
                             if (i != 0) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                         noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -470,7 +470,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             } else {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth, noteHeight / 2.0 - noteHeight / 20.0,
                                         sharpKeyLabelMap.get(j));
@@ -480,7 +480,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             }
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.B_E_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                    new B_E_Key(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                             if (displayKeyLabels == true) {
                                 Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -501,7 +501,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case F:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                    new C_F_Key(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                             if (displayKeyLabels == true) {
                                 Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -523,7 +523,7 @@ public class KeyboardPane extends Pane {
                         case G:
                             if (i != 0) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                         noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -533,7 +533,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             } else {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth, noteHeight / 2.0 - noteHeight / 20.0,
                                         sharpKeyLabelMap.get(j));
@@ -543,7 +543,7 @@ public class KeyboardPane extends Pane {
                                 this.mappingLabels.add(label);
                             }
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                    new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight, regularKeyMap.get(j)));
                             if (displayKeyLabels == true) {
                                 Text label = new Text(i * noteWidth + noteWidth / 2.75,
@@ -563,17 +563,15 @@ public class KeyboardPane extends Pane {
                             note = Notes.A;
                             break;
                         default:
-                            // this.mappedKeys.add(new Label("Error")); //FIX ME REMOVE THIS
                             break;
                     }
                 }
-                // FIX CONDITION //FIXED?
                 if (numRegularKeys - i == 0) {
                     switch (bottomNoteMapped) {
                         case A:
                             if (this.bottomNoteMappedOctave != 6) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver,
+                                        new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver,
                                                 Notes.Db,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 5.0,
@@ -586,7 +584,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case B:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                                    new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label = new Text(i * noteWidth - noteWidth / 5.0, noteHeight / 2.0 - noteHeight / 20.0,
                                     sharpKeyLabelMap.get(j));
@@ -597,7 +595,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case D:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                                    new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label1 = new Text(i * noteWidth - noteWidth / 5.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -608,7 +606,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case E:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Ab,
+                                    new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Ab,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label2 = new Text(i * noteWidth - noteWidth / 5.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -619,7 +617,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case F:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                                    new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label3 = new Text(i * noteWidth - noteWidth / 5.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -636,7 +634,7 @@ public class KeyboardPane extends Pane {
                         case A:
                             if (this.bottomNoteDisplayedOctave != 6) {
                                 this.mappedKeys.add(
-                                        new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Db,
+                                        new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Db,
                                                 octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                                 Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                         noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -648,7 +646,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case B:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label = new Text(i * noteWidth - noteWidth / 10.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -659,7 +657,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case D:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label1 = new Text(i * noteWidth - noteWidth / 10.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -670,7 +668,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case E:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Ab,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Ab,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label2 = new Text(i * noteWidth - noteWidth / 10.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -681,7 +679,7 @@ public class KeyboardPane extends Pane {
                             break;
                         case F:
                             this.mappedKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                             octave, noteWidth, noteHeight, sharpKeyMap.get(j)));
                             Text label3 = new Text(i * noteWidth - noteWidth / 10.0,
                                     noteHeight / 2.0 - noteHeight / 20.0, sharpKeyLabelMap.get(j));
@@ -702,14 +700,14 @@ public class KeyboardPane extends Pane {
                             if (compareNotes(note, octave,
                                     addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getKey(),
                                     addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getValue()) != 0) {
-                                this.normalKeys.add(new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0,
+                                this.normalKeys.add(new SharpFlatKey(i * noteWidth, 0.0,
                                         this.receiver, Notes.Ab, octave, noteWidth, noteHeight));
                             }
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                    new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight));
                         } else if (i == 0) {
-                            this.normalKeys.add(new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0,
+                            this.normalKeys.add(new C_F_Key(i * noteWidth, 0.0,
                                     this.receiver, Notes.A, octave, noteWidth, noteHeight));
                         }
                         note = Notes.B;
@@ -719,11 +717,11 @@ public class KeyboardPane extends Pane {
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getKey(),
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getValue()) != 0) {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                             octave, noteWidth, noteHeight));
                         }
                         this.normalKeys.add(
-                                new PianoKey(KeyType.B_E_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                new B_E_Key(i * noteWidth, 0.0, this.receiver, note,
                                         octave, noteWidth, noteHeight));
                         note = Notes.C;
                         octave++;
@@ -731,12 +729,12 @@ public class KeyboardPane extends Pane {
                     case C:
                         if (compareNotes(note, octave, Notes.C, 8) == 0) {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.C_FINAL, i * noteWidth, 0.0, this.receiver, note,
+                                    new FinalCKey(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight));
                             note = Notes.D;
                         } else {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                    new C_F_Key(i * noteWidth, 0.0, this.receiver, note,
                                             octave, noteWidth, noteHeight));
                             note = Notes.D;
                         }
@@ -746,11 +744,11 @@ public class KeyboardPane extends Pane {
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getKey(),
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getValue()) != 0) {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Db,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Db,
                                             octave, noteWidth, noteHeight));
                         }
                         this.normalKeys.add(
-                                new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                         octave, noteWidth, noteHeight));
                         note = Notes.E;
                         break;
@@ -759,17 +757,17 @@ public class KeyboardPane extends Pane {
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getKey(),
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getValue()) != 0) {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                             octave, noteWidth, noteHeight));
                         }
                         this.normalKeys.add(
-                                new PianoKey(KeyType.B_E_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                new B_E_Key(i * noteWidth, 0.0, this.receiver, note,
                                         octave, noteWidth, noteHeight));
                         note = Notes.F;
                         break;
                     case F:
                         this.normalKeys.add(
-                                new PianoKey(KeyType.C_F_KEY, i * noteWidth, 0.0, this.receiver, note,
+                                new C_F_Key(i * noteWidth, 0.0, this.receiver, note,
                                         octave, noteWidth, noteHeight));
                         note = Notes.G;
                         break;
@@ -778,11 +776,11 @@ public class KeyboardPane extends Pane {
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getKey(),
                                 addNoteSteps(bottomNoteMapped, bottomNoteMappedOctave, 10).getValue()) != 0) {
                             this.normalKeys.add(
-                                    new PianoKey(KeyType.SHARP_FLAT, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                                    new SharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                             octave, noteWidth, noteHeight));
                         }
                         this.normalKeys.add(
-                                new PianoKey(KeyType.STANDARD, i * noteWidth, 0.0, this.receiver, note,
+                                new StandardKey(i * noteWidth, 0.0, this.receiver, note,
                                         octave, noteWidth, noteHeight));
                         note = Notes.A;
                         break;
@@ -800,28 +798,28 @@ public class KeyboardPane extends Pane {
                 case D:
                     if (compareNotes(note, octave, Notes.C, 8) < 0) {
                         this.normalKeys.add(
-                                new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Db,
+                                new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Db,
                                         octave, noteWidth, noteHeight));
                     }
                     break;
                 case E:
                     this.normalKeys.add(
-                            new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Eb,
+                            new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Eb,
                                     octave, noteWidth, noteHeight));
                     break;
                 case G:
                     this.normalKeys.add(
-                            new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Gb,
+                            new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Gb,
                                     octave, noteWidth, noteHeight));
                     break;
                 case A:
                     this.normalKeys.add(
-                            new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Ab,
+                            new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Ab,
                                     octave, noteWidth, noteHeight));
                     break;
                 case B:
                     this.normalKeys.add(
-                            new PianoKey(KeyType.SHARP_FLAT_FINAL, i * noteWidth, 0.0, this.receiver, Notes.Bb,
+                            new FinalSharpFlatKey(i * noteWidth, 0.0, this.receiver, Notes.Bb,
                                     octave, noteWidth, noteHeight));
                     break;
                 default:

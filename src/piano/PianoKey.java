@@ -5,20 +5,19 @@ import javax.sound.midi.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import music.Notes;
 import music.Note;
 import music.NoteUtil;
 
-public class PianoKey extends Polygon {
+public abstract class PianoKey extends Polygon {
 
     private KeyCode keyboardKey;
-    private KeyType type;
     private int octave;
     private Notes note;
     private static IntegerProperty volume = new SimpleIntegerProperty();
-    private boolean isPressed = false;
+    private boolean isMousePressed = false;
+    private boolean isKeyboardPressed = false;
 
     private Receiver receiver;
 
@@ -54,192 +53,76 @@ public class PianoKey extends Polygon {
 
     }
 
-    private void setChangeColor() {
-        switch (this.type) {
-            case STANDARD:
-            case C_FINAL:
-            case B_E_KEY:
-            case C_F_KEY:
+    public abstract void changeColorMouse();
 
-                this.setOnDragDetected(e -> {
-                    this.startNote();
-                    this.setFill(Color.WHITE.darker());
-                    this.startFullDrag();
-                });
-                this.setOnMousePressed(e -> {
-                    e.setDragDetect(true);
-                });
-                this.setOnMouseReleased(e -> {
-                    this.stopNote();
-                    this.setFill(Color.WHITE);
-                    e.setDragDetect(false);
-                });
-                this.setOnMouseDragEntered(e -> {
-                    this.startNote();
-                    this.setFill(Color.WHITE.darker());
-                });
-                this.setOnMouseDragExited(e -> {
-                    this.stopNote();
-                    this.setFill(Color.WHITE);
-                });
-                this.setOnMouseDragReleased(e -> {
-                    this.stopNote();
-                    this.setFill(Color.WHITE);
-                });
-                break;
-            case SHARP_FLAT_FINAL:
-            case SHARP_FLAT:
+    public abstract void changeColorKeyboard();
 
-                this.setOnDragDetected(e -> {
-                    this.startNote();
-                    this.setFill(Color.DARKGRAY.darker().darker());
-                    this.startFullDrag();
-                });
-                this.setOnMousePressed(e -> {
-                    e.setDragDetect(true);
-                    this.startNote();
-                    this.setFill(Color.DARKGRAY.darker().darker());
-                });
-                this.setOnMouseReleased(e -> {
-                    this.stopNote();
-                    this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-                    e.setDragDetect(false);
-                });
-                this.setOnMouseDragEntered(e -> {
-                    this.startNote();
-                    this.setFill(Color.DARKGRAY.darker().darker());
-                });
-                this.setOnMouseDragExited(e -> {
-                    this.stopNote();
-                    this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-                });
-                this.setOnMouseDragReleased(e -> {
-                    this.stopNote();
-                    this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-                });
-                break;
-        }
+    protected void setMouseHandling() {
+
+        this.setOnDragDetected(e -> {
+            this.startNote();
+            this.setIsMousePressed(false);
+            this.changeColorMouse();
+            this.setIsMousePressed(true);
+            this.startFullDrag();
+        });
+        this.setOnMousePressed(e -> {
+            e.setDragDetect(true);
+        });
+        this.setOnMouseReleased(e -> {
+            this.stopNote();
+            this.setIsMousePressed(true);
+            this.changeColorMouse();
+            this.setIsMousePressed(false);
+            e.setDragDetect(false);
+        });
+        this.setOnMouseDragEntered(e -> {
+            this.startNote();
+            this.setIsMousePressed(false);
+            this.changeColorMouse();
+            this.setIsMousePressed(true);
+        });
+        this.setOnMouseDragExited(e -> {
+            this.stopNote();
+            this.setIsMousePressed(true);
+            this.changeColorMouse();
+            this.setIsMousePressed(false);
+        });
+        this.setOnMouseDragReleased(e -> {
+            this.stopNote();
+            this.setIsMousePressed(true);
+            this.changeColorMouse();
+            this.setIsMousePressed(false);
+        });
+
     }
 
-    public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
-            double noteWidth, double noteHeight) {
-        super();
-        this.keyboardKey = null;
-        this.type = type;
+    public PianoKey(Receiver receiver, Notes note, int octave, KeyCode keyboardKey) {
+        this.keyboardKey = keyboardKey;
         this.receiver = receiver;
         this.note = note;
         this.octave = octave;
-        double OFFSET = noteWidth / 3.0;
-        switch (type) {
-            case STANDARD:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.WHITE);
-                this.getPoints().addAll(new Double[] {
-                        (leftAnchor), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor + 2 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor + 2 * OFFSET), (topAnchor),
-                        (leftAnchor + 1 * OFFSET), (topAnchor),
-                        (leftAnchor + 1 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor), (topAnchor + noteHeight / 2.0)
-                });
-                this.setChangeColor();
-                break;
-            case B_E_KEY:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.WHITE);
-                this.getPoints().addAll(new Double[] {
-                        (leftAnchor), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor),
-                        (leftAnchor + 1 * OFFSET), (topAnchor),
-                        (leftAnchor + 1 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor), (topAnchor + noteHeight / 2.0)
-                });
-                this.setChangeColor();
-                break;
-            case C_F_KEY:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.WHITE);
-                this.getPoints().addAll(new Double[] {
-                        (leftAnchor), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor + 2 * OFFSET), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor + 2 * OFFSET), (topAnchor),
-                        (leftAnchor), (topAnchor)
-                });
-                this.setChangeColor();
-                break;
-            case C_FINAL:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.WHITE);
-                this.getPoints().addAll(new Double[] {
-                        (leftAnchor), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor + noteHeight),
-                        (leftAnchor + 3 * OFFSET), (topAnchor),
-                        (leftAnchor), (topAnchor)
-                });
-                this.setChangeColor();
-                break;
-            case SHARP_FLAT:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-                if (leftAnchor < OFFSET) {
-                    this.getPoints().addAll(new Double[] {
-                            (leftAnchor), (topAnchor),
-                            (leftAnchor + OFFSET), (topAnchor),
-                            (leftAnchor + OFFSET), (topAnchor + noteHeight / 2.0),
-                            (leftAnchor), (topAnchor + noteHeight / 2.0)
-                    });
-                } else {
-                    this.getPoints().addAll(new Double[] {
-                            (leftAnchor - OFFSET), (topAnchor),
-                            (leftAnchor + OFFSET), (topAnchor),
-                            (leftAnchor + OFFSET), (topAnchor + noteHeight / 2.0),
-                            (leftAnchor - OFFSET), (topAnchor + noteHeight / 2.0)
-                    });
-                }
-                this.setChangeColor();
-                break;
-            case SHARP_FLAT_FINAL:
-                this.setStroke(Color.BLACK);
-                this.setFill(Color.DARKGRAY.darker().darker().darker().darker());
-
-                this.getPoints().addAll(new Double[] {
-                        (leftAnchor - OFFSET), (topAnchor),
-                        (leftAnchor), (topAnchor),
-                        (leftAnchor), (topAnchor + noteHeight / 2.0),
-                        (leftAnchor - OFFSET), (topAnchor + noteHeight / 2.0)
-                });
-
-                this.setChangeColor();
-                break;
-
-        }
-    }
-
-    public PianoKey(KeyType type, Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
-            double noteWidth, double noteHeight, KeyCode keyboardKey) {
-        this(type, leftAnchor, topAnchor, receiver, note, octave, noteWidth, noteHeight);
-        this.keyboardKey = keyboardKey;
+        this.setMouseHandling();
     }
 
     public KeyCode getKeyboardKey() {
         return this.keyboardKey;
     }
 
-    public KeyType getKeyType() {
-        return this.type;
+    public boolean getIsMousePressed() {
+        return this.isMousePressed;
     }
 
-    public boolean getIsPressed() {
-        return this.isPressed;
+    public void setIsMousePressed(boolean pressed) {
+        this.isMousePressed = pressed;
     }
 
-    public void setIsPressed(boolean pressed) {
-        this.isPressed = pressed;
+    public boolean getIsKeyboardPressed() {
+        return this.isKeyboardPressed;
+    }
+
+    public void setIsKeyboardPressed(boolean pressed) {
+        this.isKeyboardPressed = pressed;
     }
 
     public Notes getNote() {
