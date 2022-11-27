@@ -38,7 +38,6 @@ public class C_F_Key extends PianoKey {
                 (leftAnchor + 2 * OFFSET), (topAnchor),
                 (leftAnchor), (topAnchor)
         });
-        // this.setMouseHandling();
     }
 
     public C_F_Key(Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,

@@ -45,7 +45,6 @@ public class SharpFlatKey extends PianoKey {
                     (leftAnchor - OFFSET), (topAnchor + noteHeight / 2.0)
             });
         }
-        // this.setMouseHandling();
     }
 
     public SharpFlatKey(Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,

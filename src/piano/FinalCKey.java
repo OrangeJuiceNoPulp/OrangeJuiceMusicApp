@@ -36,7 +36,6 @@ public class FinalCKey extends PianoKey {
                 (leftAnchor + 3 * OFFSET), (topAnchor),
                 (leftAnchor), (topAnchor)
         });
-        // this.setMouseHandling();
     }
 
     public FinalCKey(Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,

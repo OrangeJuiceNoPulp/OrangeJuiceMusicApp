@@ -3,7 +3,7 @@ package music;
 import music.NoteUtil.AscendDescend;
 import music.NoteUtil.NotePosition;
 
-public class DefaultNoteWeights {
+public final class DefaultNoteWeights {
     public static double getDefaultNoteWeight(ScaleType scale, NotePosition initNote, NotePosition newNote,
             AscendDescend direction) {
         double weight = 0.0;

@@ -40,7 +40,6 @@ public class StandardKey extends PianoKey {
                 (leftAnchor + 1 * OFFSET), (topAnchor + noteHeight / 2.0),
                 (leftAnchor), (topAnchor + noteHeight / 2.0)
         });
-        this.setMouseHandling();
     }
 
     public StandardKey(Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,

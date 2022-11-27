@@ -25,7 +25,7 @@ public class MidiPlayerPane extends BorderPane {
     private TimerTask timerTask;
     private Text txtTimer;
     private long timerTimeMilliseconds = 0;
-    private final int timerMillisecondUpdate = 10;
+    private final int TIMER_MILLISECOND_UPDATE = 10;
     private long timerUpdateCounter = 0;
     private boolean timerIsPaused = true;
     private Button btnExit;
@@ -159,12 +159,12 @@ public class MidiPlayerPane extends BorderPane {
             public void run() {
                 if (!timerIsPaused) {
                     //keeps track of how many milliseconds have passed since the timer was paused according to the update resolution
-                    timerTimeMilliseconds += timerMillisecondUpdate;
+                    timerTimeMilliseconds += TIMER_MILLISECOND_UPDATE;
                     timerUpdateCounter++;
                     //The update resolution could have been one second, but that would lead to less precision in keeping track of the song time in the event of the song being paused
 
                     //Updates the timer display every 1 second
-                    if ((timerUpdateCounter % (1000 / timerMillisecondUpdate)) == 0) {
+                    if ((timerUpdateCounter % (1000 / TIMER_MILLISECOND_UPDATE)) == 0) {
                         int seconds = (int) ((timerTimeMilliseconds / 1000) % 60);
                         int minutes = (int) (((timerTimeMilliseconds / 1000) / 60) % 60);
                         int hours = (int) ((((timerTimeMilliseconds / 1000) / 60) / 60) % 24); //The timer will go back to 00:00:00 once a day has passed
@@ -176,7 +176,7 @@ public class MidiPlayerPane extends BorderPane {
             }
         };
         timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 0,  timerMillisecondUpdate);
+        timer.scheduleAtFixedRate(timerTask, 0,  TIMER_MILLISECOND_UPDATE);
 
         buttonBox.getChildren().addAll(btnLoadMidi, btnPlayMidi, btnStopMidi, btnExit);
         this.setBottom(buttonBox);

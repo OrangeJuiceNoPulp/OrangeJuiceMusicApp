@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Measure {
-    private static int resolution = 64;
+    private static final int RESOLUTION = 64;
 
     private TimeSignature timeSig;
     private Chord chord;
@@ -38,7 +38,7 @@ public class Measure {
     private void fillMeasure(Note prevNote, int minValue, int maxValue, double restBias, double chordBias,
             double harmonicMelodicBias, ArrayList<ArrayList<ArrayList<Double>>> ascendingWeights,
             ArrayList<ArrayList<ArrayList<Double>>> descendingWeights, ArrayList<Double> rhythmWeights, Random rand) {
-        int remainingTicks = timeSig.getTopNumber() * resolution; // This line will have to be adjusted if the program
+        int remainingTicks = timeSig.getTopNumber() * RESOLUTION; // This line will have to be adjusted if the program
                                                                   // supports time signatures like 6/8 in the future
         Note lastNonRestNote = prevNote;
 

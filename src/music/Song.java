@@ -13,7 +13,7 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
 public class Song {
-    private static int resolution = 64;
+    private static final int RESOLUTION = 64;
 
     private double BPM;
     private int numMeasures;
@@ -77,7 +77,7 @@ public class Song {
 
     public Sequence convertToSequence() throws InvalidMidiDataException {
 
-        Sequence sequence = new Sequence(Sequence.PPQ, resolution);
+        Sequence sequence = new Sequence(Sequence.PPQ, RESOLUTION);
 
         Track track = sequence.createTrack();
 

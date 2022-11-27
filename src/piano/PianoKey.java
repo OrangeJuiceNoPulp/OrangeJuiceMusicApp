@@ -57,7 +57,7 @@ public abstract class PianoKey extends Polygon {
 
     public abstract void changeColorKeyboard();
 
-    protected void setMouseHandling() {
+    private void setMouseHandling() {
 
         this.setOnDragDetected(e -> {
             this.startNote();
@@ -98,6 +98,7 @@ public abstract class PianoKey extends Polygon {
     }
 
     public PianoKey(Receiver receiver, Notes note, int octave, KeyCode keyboardKey) {
+        super();
         this.keyboardKey = keyboardKey;
         this.receiver = receiver;
         this.note = note;

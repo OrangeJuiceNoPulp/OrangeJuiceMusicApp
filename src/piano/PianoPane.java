@@ -79,11 +79,11 @@ public class PianoPane extends BorderPane {
         return btnExit;
     }
 
-    public VBox getbuttonsPanelTop() {
+    public VBox getButtonsPanelTop() {
         return buttonsPanelTop;
     }
 
-    public VBox getbuttonsPanelBottom() {
+    public VBox getButtonsPanelBottom() {
         return buttonsPanelBottom;
     }
 

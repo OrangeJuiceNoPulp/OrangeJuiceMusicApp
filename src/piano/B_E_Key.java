@@ -38,7 +38,6 @@ public class B_E_Key extends PianoKey {
                 (leftAnchor + 1 * OFFSET), (topAnchor + noteHeight / 2.0),
                 (leftAnchor), (topAnchor + noteHeight / 2.0)
         });
-        // this.setMouseHandling();
     }
 
     public B_E_Key(Double leftAnchor, Double topAnchor, Receiver receiver, Notes note, int octave,
