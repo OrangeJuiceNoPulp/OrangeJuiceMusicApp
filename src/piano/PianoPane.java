@@ -56,7 +56,7 @@ public class PianoPane extends BorderPane {
     private static ObservableList<String> instruments = FXCollections.observableArrayList("Piano", "Harpsichord",
             "Music Box", "Church Organ", "Guitar", "Electric Bass", "Violin", "Trumpet", "Square", "Sawtooth");
     private static Map<String, Integer> instrumentMap = Map.ofEntries(
-            entry("Piano", 1),
+            entry("Piano", 0),
             entry("Harpsichord", 6),
             entry("Music Box", 10),
             entry("Church Organ", 19),
