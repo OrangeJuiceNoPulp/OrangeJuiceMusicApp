@@ -6,7 +6,7 @@ Team Members: Jason Kauppila
 
 
 
-This project is an application that aims to use midi to help solve a composer's writer's block. The Orange Juice Midi Generator allows the user to randomly generate a midi file using customizable weights. The Orange Juice Midi Player allows the user to play an existing midi file on their computer. The Orange Juice Piano is a virtual piano that uses midi instruments (which the user can use to potentially play along with an improvise off of their own midi files if they are playing them at the same time using Orange Juice Midi Player).
+This project is an application that aims to use midi to help solve a composer's writer's block. The Orange Juice Midi Generator allows the user to randomly generate a midi file using customizable weights. The Orange Juice Midi Player allows the user to play an existing midi file on their computer. The Orange Juice Piano is a virtual piano that uses midi instruments (which the user can use to potentially play along with and improvise off of their own midi files if they are playing them at the same time using Orange Juice Midi Player).
 
 
 
